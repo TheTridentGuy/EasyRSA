@@ -49,7 +49,50 @@
         .actbut:hover{
             background-color: #777;
         }
+        .modal {
+            display: block; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
+    <script>
+        window.onload = function(){
+            var gkmodal = document.getElementById("gkmodal");
+
+            window.onclick = function(event) {
+                if (event.target == gkmodal) {
+                    gkmodal.style.display = "none";
+                }
+            }
+        }
+    </script>
 </head>
 <body>
     <div id="header">
@@ -57,7 +100,7 @@
         <br>
     </div>
     <div class="menu">
-        <a>Generate Keys</a>
+        <a>My Keys</a>
         <a>Encrypt</a>
         <a>Decrypt</a>
         <a>Help</a>
@@ -66,12 +109,48 @@
     <div id="genkeys">
         <br>
         <br>
-        <button class="actbut">Generate Keys</button>
-        <br>
-        <br>
-        <button class="actbut">Download Key Pair</button>
-        <button class="actbut">Download Private Key</button>
-        <button class="actbut">Download Public Key</button>
+        <button class="actbut">Generate Keychain</button>
+    </div>
+    <div id="gkmodal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="gkclose" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+            <form onsubmit="">
+                <span style="font-size: 5vmin;">Generate Keychain</span>
+                <br>
+                <br>
+                <input style="width: 98%;" type="text" name="kcname" id="kcname" placeholder="Keychain Name (Required)" oninput="
+                document.getElementById('pubname').placeholder=this.value!=''?this.value+'_public.pem':'Public Key Filename';
+                document.getElementById('priname').placeholder=this.value!=''?this.value+'_private.pem':'Private Key Filename'
+                " required>
+                <br>
+                <br>
+                <fieldset>
+                    <legend>Method</legend>
+                    <input type="radio" name="method" id="newkc" checked>
+                    <label for="newkc">New Keychain</label>
+                    <br>
+                    <input type="radio" name="method" id="fromprikc">
+                    <label for="fromprikc">From Private Key</label>
+                    <input type="file" name="prikcfile" id="prikcfile">
+                    <br>
+                    <input type="radio" name="method" id="jpubk">
+                    <label for="jpubk">Just Public Key</label>
+                    <input type="file" name="pubkfile" id="pubkfile">
+                    <br>
+                </fieldset>
+                <br>
+                <label for="priname">Private Key Filename</label>
+                <br>
+                <input style="width: 98%;" type="text" id="priname" placeholder="Private Key Filename">
+                <br>
+                <label for="pubname">Public Key Filename</label>
+                <br>
+                <input style="width: 98%;" type="text" id="pubname" placeholder="Public Key Filename">
+                <br>
+                <br>
+                <input class="actbut" type="submit" value="Generate Keychain">
+            </form>
+        </div>
     </div>
 </body>
 </html>
