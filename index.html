@@ -8,7 +8,6 @@
     <style>
         * {
             font-family: monospace;
-            color: #333;
         }
         .centered {
             text-align: center;
@@ -81,6 +80,40 @@
             text-decoration: none;
             cursor: pointer;
         }
+        .collapsible {
+            background-color: #444;
+            color: #eee;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+        .active, .collapsible:hover {
+            background-color: #666;
+        }
+        .content {
+            color: #eee;
+            padding: 2vmin;
+            display: none;
+            overflow: hidden;
+            background-color: #777;
+        }
+        .icon {
+            display: inline-flex;
+            align-self: center;
+        }
+        .icon svg, .icon img {
+            height: 1em;
+            width: 1em;
+            fill: currentColor;
+        }
+        .icon.baseline svg, .icon img {
+            top: .125em;
+            position: relative;
+        }
     </style>
     <script>
         window.onload = function(){
@@ -91,6 +124,24 @@
                     gkmodal.style.display = "none";
                 }
             }
+            draw();
+        }
+
+        function draw(){
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+            } 
         }
     </script>
 </head>
@@ -108,6 +159,13 @@
     </div>
     <div id="genkeys">
         <br>
+        <br>
+        <div id="keychains">
+            <button type="button" class="collapsible"><div style="float: right;" class="icon baseline"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></svg></div>Keychain</button>
+            <div class="content">
+                <p> & Avi's Keychain</p>
+            </div> 
+        </div>
         <br>
         <button class="actbut">Generate Keychain</button>
     </div>
