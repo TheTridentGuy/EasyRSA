@@ -115,6 +115,7 @@
             position: relative;
         }
     </style>
+    <script type="module" src="jsencrypt.min.js"></script>
     <script>
         window.onload = function(){
             var gkmodal = document.getElementById("gkmodal");
@@ -142,6 +143,26 @@
                 }
             });
             } 
+        }
+
+        class user{
+            constructor(){
+
+            }
+        }
+
+        class keychain{
+            constructor(name, publick, privatek=undefined, pubfile, prifile){
+                this.name = name;
+                this.public = publick;
+                this.private = privatek;
+                this.pubfile = pubfile;
+                this.prifile = prifile;
+            }
+        }
+
+        function newkeychain(){
+
         }
     </script>
 </head>
@@ -172,7 +193,7 @@
     <div id="gkmodal" class="modal">
         <div class="modal-content">
             <span class="close" id="gkclose" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
-            <form onsubmit="">
+            <form method="post" onsubmit="event.preventDefault(); newkeychain();">
                 <span style="font-size: 5vmin;">Generate Keychain</span>
                 <br>
                 <br>
